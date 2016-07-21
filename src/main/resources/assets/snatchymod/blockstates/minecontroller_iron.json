@@ -1,0 +1,13 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "snatchymod:minecontroller",
+    "textures": {
+      "type": "snatchymod:blocks/minecontroller_iron"
+    }
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
+}

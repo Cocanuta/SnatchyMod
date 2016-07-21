@@ -1,0 +1,19 @@
+[
+  {
+    "modid": "snatchymod",
+    "name": "SnatchyMod",
+    "description": "The official SnatchyBuckles server mod.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "http://www.SnatchyBuckles.com/",
+    "updateUrl": "",
+    "authorList": [
+      "Cocanuta",
+      "Engolus"
+    ],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]

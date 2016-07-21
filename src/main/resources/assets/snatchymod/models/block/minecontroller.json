@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "snatchymod:blocks/minecontroller",
+    "down": "#type",
+    "up": "#type",
+    "east": "snatchymod:blocks/minecontroller",
+    "west": "snatchymod:blocks/minecontroller",
+    "north": "snatchymod:blocks/minecontroller",
+    "south": "snatchymod:blocks/minecontroller"
+  }
+}
