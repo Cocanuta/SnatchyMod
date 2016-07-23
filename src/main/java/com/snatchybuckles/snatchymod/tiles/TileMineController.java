@@ -16,8 +16,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 public class TileMineController extends TileEntity implements ITickable {
 
     // Here we set our timer field, and our interval in which to set the timer to when it resets.
-    private int timer = 400;
-    private int interval = 400;
+    private int timer = 600;
     private BlockMineController.MineType mineType = BlockMineController.MineType.IRON;
 
     // Here we create a public method to get the current time remaining on the timer.
@@ -45,10 +44,22 @@ public class TileMineController extends TileEntity implements ITickable {
             timer--;
             if(timer <= 0)
             {
-                FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().sendChatMsg(new TextComponentString("Mine resetting."));
-                UtilMine.movePlayers(worldObj, pos, worldObj.getBlockState(pos).getValue(BlockMineController.FACING));
-                UtilMine.fillMine(worldObj, pos, worldObj.getBlockState(pos).getValue(BlockMineController.FACING), mineType.getBlock());
-                timer = interval;
+                float blockCount = UtilMine.checkMine(worldObj, pos, worldObj.getBlockState(pos).getValue(BlockMineController.FACING));
+                float minePercentage = (blockCount / 7220) * 100;
+                if(minePercentage < 99.000f)
+                {
+                    FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().sendChatMsg(new TextComponentString("Mine Percentage: " + minePercentage));
+                    FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().sendChatMsg(new TextComponentString(blockCount + " blocks remaining."));
+                    FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().sendChatMsg(new TextComponentString("Mine resetting."));
+                    UtilMine.movePlayers(worldObj, pos, worldObj.getBlockState(pos).getValue(BlockMineController.FACING));
+                    UtilMine.fillMine(worldObj, pos, worldObj.getBlockState(pos).getValue(BlockMineController.FACING), mineType.getBlock());
+                }
+                else
+                {
+                    FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().sendChatMsg(new TextComponentString("Mine Percentage: " + minePercentage));
+                    FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().sendChatMsg(new TextComponentString(blockCount + " blocks remaining."));
+                }
+                timer = 600;
             }
         }
     }
@@ -58,7 +69,6 @@ public class TileMineController extends TileEntity implements ITickable {
     {
         super.readFromNBT(compound);
         timer = compound.getInteger("timer");
-        interval = compound.getInteger("interval");
         mineType = BlockMineController.MineType.values()[compound.getInteger("oreType")];
     }
 
@@ -67,7 +77,6 @@ public class TileMineController extends TileEntity implements ITickable {
     {
         super.writeToNBT(compound);
         compound.setInteger("timer", timer);
-        compound.setInteger("interval", interval);
         compound.setInteger("oreType", mineType.getId());
         return compound;
     }

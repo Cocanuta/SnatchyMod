@@ -3,6 +3,7 @@ package com.snatchybuckles.snatchymod.utils;
 import com.snatchybuckles.snatchymod.blocks.BlockMineController;
 import com.snatchybuckles.snatchymod.blocks.SnatchyBlocks;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockAir;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
@@ -70,6 +71,58 @@ public class UtilMine {
                 }
             }
         }
+
+    }
+
+    public static float checkMine(World worldIn, BlockPos startPos, EnumFacing direction)
+    {
+        BlockPos pos = startPos.offset(direction).offset(direction.rotateY());
+        int startX = pos.getX();
+        int startY = pos.getY();
+        int startZ = pos.getZ();
+        BlockPos endPos = pos.offset(direction, 18).offset(direction.rotateY(), 18).offset(EnumFacing.DOWN, 19);
+        int endX = endPos.getX();
+        int endY = endPos.getY();
+        int endZ = endPos.getZ();
+
+        int blockCount = 0;
+
+        if(direction == EnumFacing.NORTH)
+        {
+            startZ = pos.getZ() - 18;
+            endZ = endPos.getZ() + 18;
+        }
+
+        if(direction == EnumFacing.SOUTH)
+        {
+            startX = pos.getX() - 18;
+            endX = endPos.getX() + 18;
+        }
+
+        if(direction == EnumFacing.WEST)
+        {
+            startX = pos.getX() - 18;
+            startZ = pos.getZ() - 18;
+            endX = endPos.getX() + 18;
+            endZ = endPos.getZ() + 18;
+        }
+
+        for(int x = startX; x <= endX; x++)
+        {
+            for(int y = endY; y <= startY; y++)
+            {
+                for(int z = startZ; z <= endZ; z++)
+                {
+                    if(worldIn.getBlockState(new BlockPos(x, y, z)) != Blocks.AIR.getDefaultState())
+                    {
+                        blockCount++;
+                    }
+                }
+            }
+        }
+
+        return blockCount;
+
 
     }
 
