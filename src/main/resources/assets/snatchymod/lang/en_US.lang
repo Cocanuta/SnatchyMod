@@ -1,4 +1,4 @@
 < en_US.lang - English localization file for the mod SnatchyMod >
-tile.snatchymod:minecontroller_iron.name=Mine Controller (Iron Ore)
-tile.snatchymod:minecontroller_gold.name=Mine Controller (Gold Ore)
+tile.snatchymod:minecontroller_iron_ore.name=Mine Controller (Iron Ore)
+tile.snatchymod:minecontroller_gold_ore.name=Mine Controller (Gold Ore)
 tile.snatchymod:minecontroller_clay.name=Mine Controller (Clay)
